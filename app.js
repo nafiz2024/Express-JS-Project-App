@@ -8,7 +8,7 @@ import hpp from 'hpp';
 import * as path from 'path';
 import router from './routes/api.js';
 import { MONGODB_CONNECTION, PORT, MAX_JSON_SIZE, URL_ENCODED, WEB_CACHE, REQUEST_LIMIT_NUMBER, REQUEST_LIMIT_TIME } from './app/config/config.js';
-
+import fileUpload from 'express-fileupload';
 
 const app = express();
 
@@ -20,6 +20,10 @@ app.use(express.urlencoded({ extended: URL_ENCODED }));
 app.use(hpp())
 app.use(cookieParser());
 app.use(helmet());
+
+app.use(fileUpload({
+    limits:{ fileSize: 50 * 1024 * 1024 },
+}))
 
 
 // Rate Limiter
